@@ -1,0 +1,10 @@
+{
+  "name": "CAT Coin",
+  "symbol": "CAT",
+  "description": "Meme coin project built on Solana for fun and transparency.",
+  "image": "https://raw.githubusercontent.com/adelhammoud/token-list/main/assets/mainnet/AvvSqzmULjorcU8xURSdC8F8Ss2jLLQvBaAnGTRysVDU/logo.png",
+  "attributes": [
+    { "trait_type": "Category", "value": "Meme" },
+    { "trait_type": "Blockchain", "value": "Solana" }
+  ]
+}
