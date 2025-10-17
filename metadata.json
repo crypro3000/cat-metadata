@@ -1,10 +1,35 @@
-{
-  "name": "CAT Coin",
-  "symbol": "CAT",
-  "description": "Meme coin project built on Solana for fun and transparency.",
-  "image": "https://raw.githubusercontent.com/adelhammoud/token-list/main/assets/mainnet/AvvSqzmULjorcU8xURSdC8F8Ss2jLLQvBaAnGTRysVDU/logo.png",
-  "attributes": [
-    { "trait_type": "Category", "value": "Meme" },
-    { "trait_type": "Blockchain", "value": "Solana" }
-  ]
-}
+const fs = require('fs');
+const { createUmi } = require('@metaplex-foundation/umi-bundle-defaults');
+const { publicKey } = require('@metaplex-foundation/umi');
+const { keypairIdentity } = require('@metaplex-foundation/umi');
+const { createV1, TokenStandard } = require('@metaplex-foundation/mpl-token-metadata');
+
+(async () => {
+  try {
+    const RPC_URL = 'https://api.mainnet-beta.solana.com';
+    const KEYPAIR_PATH = process.env.HOME + '/.config/solana/id.json';
+    const MINT = 'AvvSqzmULjorcU8xURSdC8F8Ss2jLLQvBaAnGTRysVDU';
+    const NAME = 'CAT Coin';
+    const SYMBOL = 'CAT';
+    const URI = 'https://raw.githubusercontent.com/crypro3000/cat-metadata/refs/heads/main/metadata.json';
+
+    const secret = Uint8Array.from(JSON.parse(fs.readFileSync(KEYPAIR_PATH, 'utf8')));
+    const umi = createUmi(RPC_URL).use(keypairIdentity({ publicKey: null, secretKey: secret }));
+
+    const tx = await createV1(umi, {
+      mint: publicKey(MINT),
+      authority: umi.identity,
+      name: NAME,
+      symbol: SYMBOL,
+      uri: URI,
+      sellerFeeBasisPoints: 0,
+      tokenStandard: TokenStandard.Fungible,
+      isMutable: true
+    }).sendAndConfirm(umi);
+
+    console.log('✅ Metadata creada para el mint:', MINT);
+    console.log('Signature:', tx.signature.toString());
+  } catch (e) {
+    console.error('❌ Error creando metadata:', e?.message || e);
+  }
+})();
