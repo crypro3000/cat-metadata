@@ -2,7 +2,7 @@
   "name": "CAT Coin",
   "symbol": "CAT",
   "description": "Meme coin project built on Solana for fun and transparency.",
-  "image": "https://raw.githubusercontent.com/crypro3000/cat-metadata/main/logo.png",
+  "image": "https://raw.githubusercontent.com/crypro3000/cat-metadata/main/CAT.png",
   "attributes": [
     { "trait_type": "Category", "value": "Meme" },
     { "trait_type": "Blockchain", "value": "Solana" }
